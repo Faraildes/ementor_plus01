@@ -1,7 +1,5 @@
 package model.services;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import model.dao.DaoFactory;
@@ -14,5 +12,11 @@ public class TeacherService {
 	
 	public List<Teacher> findAll(){
 		return dao.findAll();
-	}	
+	}
+	
+	public void saveOrUpdate(Teacher obj) {
+		if (obj.getId() == null)
+			dao.insert(obj);
+		dao.update(obj);
+	}
 }
