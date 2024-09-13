@@ -33,7 +33,7 @@
             <TableColumn fx:id="tableColunmAdmissionDate" prefWidth="75.0" text="AdmissionDate" />
             <TableColumn fx:id="tableColunmSalary" prefWidth="75.0" text="Salary" />
             <TableColumn fx:id="tableColunmChief" prefWidth="75.0" text="Chief" />
-            <TableColumn fx:id="tableColunmChiefCoordinator" prefWidth="75.0" text="ChiefCoordinator" />
+            <TableColumn fx:id="tableColunmCoordinator" prefWidth="75.0" text="Coordinator" />
         </columns>
       </TableView>
    </children>

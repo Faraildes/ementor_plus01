@@ -14,24 +14,22 @@ public class Teacher implements Serializable {
 	private String phone;
 	private Date admissionDate;
 	private Double salary;
-	private Boolean chefia;
-	private Boolean coordenador;
+	private String chief;
+	private String Coordinator;
 	
-	public Teacher() {
-	}	
-	
-	public Teacher(Integer id, String name, String cpf, String phone, Date admissionDate, Double salary, Boolean chefia,
-			Boolean coordenador) {
-		
+	public Teacher(Integer id, String name, String cpf, String phone, java.util.Date date, Double salary, String chief,
+			String coordinator) {		
 		this.id = id;
 		this.name = name;
 		this.cpf = cpf;
 		this.phone = phone;
 		this.admissionDate = admissionDate;
 		this.salary = salary;
-		this.chefia = chefia;
-		this.coordenador = coordenador;
+		this.chief = chief;
+		Coordinator = coordinator;
 	}
+
+
 
 	public Integer getId() {
 		return id;
@@ -81,20 +79,20 @@ public class Teacher implements Serializable {
 		this.salary = salary;
 	}
 
-	public Boolean getChefia() {
-		return chefia;
+	public String getChief() {
+		return chief;
 	}
 
-	public void setChefia(Boolean chefia) {
-		this.chefia = chefia;
+	public void setChief(String chief) {
+		this.chief = chief;
 	}
 
-	public Boolean getCoordenador() {
-		return coordenador;
+	public String getCoordinator() {
+		return Coordinator;
 	}
 
-	public void setCoordenador(Boolean coordenador) {
-		this.coordenador = coordenador;
+	public void setCoordinator(String coordinator) {
+		Coordinator = coordinator;
 	}
 
 	public static long getSerialversionuid() {
@@ -121,7 +119,7 @@ public class Teacher implements Serializable {
 	@Override
 	public String toString() {
 		return "Teacher [id=" + id + ", name=" + name + ", cpf=" + cpf + ", phone=" + phone + ", admissionDate="
-				+ admissionDate + ", salary=" + salary + ", chefia=" + chefia + ", coordenador=" + coordenador + "]";
-	}
+				+ admissionDate + ", salary=" + salary + ", chief=" + chief + ", Coordinator=" + Coordinator + "]";
+	}	
 }
 	
