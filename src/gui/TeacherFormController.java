@@ -1,14 +1,15 @@
 package gui;
 
 import java.net.URL;
-import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
 import db.DbException;
+import gui.listeners.DataChangeListener;
 import gui.util.Alerts;
 import gui.util.Constraints;
 import gui.util.Utils;
@@ -28,6 +29,8 @@ public class TeacherFormController implements Initializable {
 	private Teacher entity;
 	
 	private TeacherService service;
+	
+	private List<DataChangeListener> dataChangeListeners = new ArrayList<>(); 
 	
 	@FXML
 	private TextField txtId;
@@ -88,6 +91,10 @@ public class TeacherFormController implements Initializable {
 		this.service = service;		
 	}
 	
+	public void subscribeDataChangeListener(DataChangeListener listener) {
+		dataChangeListeners.add(listener);
+	}
+	
 	@FXML
 	public void onBtSaveAction(ActionEvent event) {
 		if (entity == null)
@@ -95,8 +102,9 @@ public class TeacherFormController implements Initializable {
 		if (service == null)
 			throw new IllegalStateException("Service was null");
 		try {
-			entity = getFormData();
+			entity = getFormData();			
 			service.saveOrUpdate(entity);
+			notifyDataChangeListeners();
 			Utils.currentStage(event).close();
 		}
 		catch (DbException e) {
@@ -104,8 +112,17 @@ public class TeacherFormController implements Initializable {
 		}
 	}
 	
+	private void notifyDataChangeListeners() {
+		for (DataChangeListener listener : dataChangeListeners) {
+			listener.onDataChange();
+		}
+		
+	}
+
 	private Teacher getFormData() {
 		Teacher obj = new Teacher();
+		
+		//ValidationException exception = new ValidationException("Validation error"); 
 		
 		obj.setId(Utils.tryParseToInt(txtId.getText()));
 		obj.setName(txtName.getText());
@@ -133,7 +150,7 @@ public class TeacherFormController implements Initializable {
 	
 	private void initializeNodes() {
 		Constraints.setTextFieldInteger(txtId);
-		Constraints.setTextFieldMaxLength(txtName, 30);
+		Constraints.setTextFieldMaxLength(txtName, 70);
 		Constraints.setTextFieldMaxLength(txtCpf, 12);
 		Constraints.setTextFieldMaxLength(txtPhone, 15);
 		Utils.formatDatePicker(dpAdmissionDate, "dd/MM/yyyy");
